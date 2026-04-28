@@ -5,8 +5,9 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-from bot.config import BOT_TOKEN
-from bot.handlers import start, help
+from config import BOT_TOKEN
+from handlers.start import router as start_router
+from handlers.help import router as help_router
 
 async def main():
     logging.basicConfig(level=logging.INFO)
@@ -17,7 +18,7 @@ async def main():
     )
 
     dp = Dispatcher()
-    dp.include_router(start.router)
+    from config import WEBAPP_URL
     dp.include_router(help.router)
 
     await dp.start_polling(bot)
